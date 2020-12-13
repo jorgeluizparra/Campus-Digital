@@ -1,28 +1,81 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <v-app>
+      <div>
+        <v-toolbar class="toolbar">
+          <img src="./assets/icon.webp" >
+          <v-toolbar-title><strong>EdTech</strong> - Sistema de cadastro</v-toolbar-title>
+          <template class="nav-link" v-slot:extension>
+            <nav-link :pages="pages" />
+          </template>
+        </v-toolbar>
+      </div>
+
+      <!-- Here goes the content -->
+      <router-view class="page"/>
+
+      <footer>
+        <nav-mobile :pages="pages"></nav-mobile>
+      </footer>
+    </v-app>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import navLink from '@/components/nav.vue'
+import navMobile from '@/components/nav-mobile.vue'
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
+    'nav-link': navLink,
+    'nav-mobile': navMobile
+  },
+  data() {
+    return {
+      pages: [
+        {
+          title: 'Alunos',
+          icon: 'mdi-format-list-bulleted',
+          route: '/'
+        }
+      ]
+    }
+  },
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+  }
+
+  .toolbar {
+    
+    img {
+      width: 90px;
+    }
+  }
+
+  .page {
+    padding: 20px;
+  }
+
+  footer {
+    display: none;
+  }
+
+  @media screen and (max-width: 800px) {
+    header {
+      height: fit-content !important;
+    }
+
+    .v-toolbar__extension {
+      display: none !important;
+    }
+
+    footer {
+      display: block;
+    }
+  }
 </style>
