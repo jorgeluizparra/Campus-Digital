@@ -10,7 +10,7 @@
             v-for="(page, key) in pages"
             :key="key"
             :to="page.route"
-            color="deep-purple accent-4"
+            color="black"
             text
             >
             <span>{{page.title}}</span>

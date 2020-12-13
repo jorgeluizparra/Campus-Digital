@@ -1,20 +1,23 @@
 <template>
   <div id="app">
-    <v-toolbar>
-      <v-toolbar-title>Sistema de cadastro</v-toolbar-title>
+    <v-app>
+      <div>
+        <v-toolbar class="toolbar">
+          <img src="./assets/icon.webp" >
+          <v-toolbar-title><strong>EdTech</strong> - Sistema de cadastro</v-toolbar-title>
+          <template class="nav-link" v-slot:extension>
+            <nav-link :pages="pages" />
+          </template>
+        </v-toolbar>
+      </div>
 
-      <v-spacer></v-spacer>
+      <!-- Here goes the content -->
+      <router-view class="page"/>
 
-      <nav-link class="nav-link" :pages="pages"></nav-link>
-
-    </v-toolbar>
-
-    <!-- Here goes the content -->
-    <router-view class="page"/>
-
-    <footer>
-      <nav-mobile :pages="pages"></nav-mobile>
-    </footer>
+      <footer>
+        <nav-mobile :pages="pages"></nav-mobile>
+      </footer>
+    </v-app>
   </div>
 </template>
 
@@ -31,15 +34,10 @@ export default {
     return {
       pages: [
         {
-          title: 'Lista de alunos',
+          title: 'Alunos',
           icon: 'mdi-format-list-bulleted',
           route: '/'
-        },
-        {
-          title: 'Cadastrar',
-          icon: 'mdi-pencil',
-          route: '/signup'
-        },
+        }
       ]
     }
   },
@@ -49,6 +47,14 @@ export default {
 <style lang="scss">
   body {
     font-family: Arial, Helvetica, sans-serif;
+    color: black;
+  }
+
+  .toolbar {
+    
+    img {
+      width: 90px;
+    }
   }
 
   .page {
@@ -60,8 +66,12 @@ export default {
   }
 
   @media screen and (max-width: 800px) {
-    .nav-link {
-      display: none;
+    header {
+      height: fit-content !important;
+    }
+
+    .v-toolbar__extension {
+      display: none !important;
     }
 
     footer {

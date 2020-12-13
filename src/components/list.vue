@@ -1,26 +1,59 @@
 <template>
     <div>
-        <v-list subheader>
-            <v-list-item
-                v-for="student in students"
-                :key="student.title"
-            >
-                <v-list-item-content>
-                    <v-list-item-title v-text="student.name"></v-list-item-title>
-                </v-list-item-content>
-
-                <v-list-item-action>
-                    <v-btn icon>
-                        <v-icon color="grey lighten-1">mdi-pencil</v-icon>
-                    </v-btn>
-                </v-list-item-action>
-                <v-list-item-action>
-                    <v-btn icon>
-                        <v-icon color="grey lighten-1">mdi-delete</v-icon>
-                    </v-btn>
-                </v-list-item-action>
-            </v-list-item>
-        </v-list>
+        <v-simple-table>
+            <template v-slot:default>
+            <thead>
+                <tr>
+                    <th class="text-left">
+                        Registro Acadêmico
+                    </th>
+                    <th class="text-left">
+                        Nome
+                    </th>
+                    <th class="text-left">
+                        CPF
+                    </th>
+                    <th class="text-left">
+                        Editar
+                    </th>
+                    <th class="text-left">
+                        Deletar
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                v-for="(student, key) in students"
+                :key="key"
+                >
+                    <td>{{ student.studentNumber }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.cpf }}</td>
+                    <td>
+                        <v-btn
+                          class="ma-2 edit"
+                          depressed
+                          fab
+                          text
+                          small>
+                            <v-icon>mdi-pencil</v-icon>
+                        </v-btn>
+                    </td>
+                    <td>
+                        <v-btn
+                          class="ma-2 delete"
+                          depressed
+                          fab
+                          text
+                          small
+                          color="red darken-4">
+                            <v-icon>mdi-delete</v-icon>
+                        </v-btn>
+                    </td>
+                </tr>
+            </tbody>
+            </template>
+  </v-simple-table>
     </div>
 </template>
 
@@ -36,3 +69,7 @@ export default {
     },
 }
 </script>
+
+<style lang="scss">
+
+</style>

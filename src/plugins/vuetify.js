@@ -8,11 +8,9 @@ Vue.use(Vuetify);
 export default new Vuetify({
     theme: {
         themes: {
-            light: {
-                primary: colors.shades.black,
-                secondary: colors.red.darken4,
-                accent: colors.grey.lighten1,
-            },
+            primary: colors.shades.black,
+            secondary: colors.red.darken4,
+            accent: colors.grey.lighten1,
         },
     },
     icons: {

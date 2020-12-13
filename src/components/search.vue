@@ -1,10 +1,28 @@
 <template>
     <div>
-        <v-text-field
-            v-model="searchValue"
-            label="Procurar"
-            hide-details="auto"
-        ></v-text-field>
+        <v-row>
+            <v-text-field
+                v-model="searchValue"
+                label="Pesquisar"
+                color="red darken-4"
+                hide-details="auto"
+            ></v-text-field>
+            <v-btn
+                class="ma-2 button-search"
+                depressed
+                dark
+                color="black">
+                Pesquisar
+            </v-btn>
+            <v-btn
+                to="/signup"
+                class="ma-2 button-search"
+                depressed
+                dark
+                color="red darken-4">
+                Cadastar
+            </v-btn>
+        </v-row>
     </div>
 </template>
 
@@ -30,3 +48,11 @@ export default {
     },
 }
 </script>
+
+<style lang="scss">
+    @media screen and (max-width: 800px){
+        .button-search {
+            display: none;
+        }        
+    }
+</style>

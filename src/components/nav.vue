@@ -1,6 +1,19 @@
 <template>
     <div>
-        <a class="nav" v-for="(page, key) in pages" :key="key" :href="page.route">{{page.title}}</a>
+        <v-tabs
+            color="black"
+            v-model="tab"
+            align-with-title
+        >
+            <v-tabs-slider color="red darken-4"></v-tabs-slider>
+            <v-tab
+            v-for="(page, key) in pages"
+            :key="key"
+            :to="page.route"
+            >
+            {{ page.title }}
+            </v-tab>
+        </v-tabs>
     </div>
 </template>
 
@@ -8,7 +21,12 @@
 export default {
     props: {
         pages: Array
-    }
+    },
+    data() {
+        return {
+            tab: null,
+        }
+    },
 }
 </script>
 
@@ -16,7 +34,7 @@ export default {
     .nav {
         text-decoration: none;
         padding: 5px;
-        color: black;
+        color: black !important;
         cursor: pointer;
 
         &:hover, &:active {
