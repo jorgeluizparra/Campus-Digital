@@ -6,6 +6,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     search: '',
+    formData: {
+      name: '',
+      email: '',
+      studentNumber: '',
+      cpf: ''
+    },
     students: [
       {
         id: 1,
@@ -26,12 +32,28 @@ export default new Vuex.Store({
   mutations: {
     setSearch (state, value) {
       state.search = value
+    },
+    addRegistration (state, payload) {
+      state.students.push(payload)
+    },
+    clearFormData (state) {
+      state.formData.name = ''
+      state.formData.email = ''
+      state.formData.studentNumber = ''
+      state.formData.cpf = ''
     }
   },
   actions: {
     setSearch ({commit}, value) {
       commit('setSearch', value)
-    }
+    },
+    submit ({commit, state}) {
+      commit('addRegistration', state.formData)
+      commit('clearFormData')
+    },
+    clearFormData ({commit}) {
+      commit('clearFormData')
+    },
   },
   getters: {
     showSearchValue: (state) => {
@@ -39,6 +61,9 @@ export default new Vuex.Store({
     },
     showStudents: (state) => {
       return state.students
+    },
+    payload: (state) => {
+      return state.formData
     }
   }
 })
