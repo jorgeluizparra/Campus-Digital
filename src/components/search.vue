@@ -1,50 +1,49 @@
 <template>
     <div>
-        <v-row>
-            <v-text-field
-                v-model="searchValue"
-                label="Pesquisar"
-                color="red darken-4"
-                hide-details="auto"
-            ></v-text-field>
-            <v-btn
-                class="ma-2 button-search"
-                depressed
-                dark
-                color="black">
-                Pesquisar
-            </v-btn>
-            <v-btn
-                to="/signup"
-                class="ma-2 button-search"
-                depressed
-                dark
-                color="red darken-4">
-                Cadastar
-            </v-btn>
-        </v-row>
+            <form @submit.prevent="submit()">
+                <v-text-field
+                    v-model="search"
+                    label="Pesquisar"
+                    color="red darken-4"
+                    hide-details="auto"
+                ></v-text-field>
+                <div class="mt-2">
+                    <v-btn
+                        type="submit"
+                        class="mr-4 button-search"
+                        depressed
+                        dark
+                        color="black">
+                        Pesquisar
+                    </v-btn>
+                    <v-btn
+                        to="/signup"
+                        class="button-search"
+                        depressed
+                        dark
+                        color="red darken-4">
+                        Cadastar
+                    </v-btn>
+                </div>
+            </form>
     </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
-    computed: {
-        ...mapGetters(['showSearchValue']),
-        searchValue: {
-            get () {
-                return this.showSearchValue
-            },
-            set (value) {
-                this.setSearch(value)
-            }
+    data() {
+        return {
+            search: ''
         }
     },
     methods: {
-        ...mapActions([
-            'setSearch'
-        ])
+        ...mapActions(['getRegisters']),
+        submit() {
+            this.getRegisters({page: 0, search: this.search});
+            this.search = '';
+        }
     },
 }
 </script>

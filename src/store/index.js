@@ -1,66 +1,84 @@
+import Axios from 'axios'
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '../router/index'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    search: '',
     formData: {
       name: '',
       email: '',
       studentNumber: '',
       cpf: ''
     },
-    students: [
-      {
-        id: 1,
-        studentNumber: 5469895,
-        name: 'Carlos',
-        cpf: '123456987-0',
-        created_at: '02/10/1996'
-      },
-      {
-        id: 2,
-        studentNumber: 5469895,
-        name: 'Joana',
-        cpf: '123456987-0',
-        created_at: '02/10/1996'
-      }
-    ]
+    students: {
+      // items: [
+      //   {
+      //     name: '',
+      //     email: '',
+      //     cpf: '',
+      //     studentNumber: ''
+      //   }
+      // ],
+      // nextPage: "",
+      // page: "0",
+      // previousPage: "",
+      // totalItems: 0,
+      // totalPages: 0
+    }
   },
   mutations: {
-    setSearch (state, value) {
-      state.search = value
+    setRegisters (state, array) {
+      state.students = array
     },
-    addRegistration (state, payload) {
-      state.students.push(payload)
+    addRegistration (state) {
+      Vue.set(state.students, state.students.length, state.formData)
     },
     clearFormData (state) {
       state.formData.name = ''
       state.formData.email = ''
       state.formData.studentNumber = ''
       state.formData.cpf = ''
+    },
+    deleteRegister (state, index) {
+      Vue.delete(state.students, index)
+    },
+    editRegister (state, index) {
+      state.formData = state.students[index]
     }
   },
   actions: {
-    setSearch ({commit}, value) {
-      commit('setSearch', value)
-    },
-    submit ({commit, state}) {
-      commit('addRegistration', state.formData)
+    submit ({commit}) {
+      commit('addRegistration')
       commit('clearFormData')
     },
     clearFormData ({commit}) {
       commit('clearFormData')
     },
+    deleteRegister ({commit}, index) {
+      commit('deleteRegister', index)
+    },
+    editRegister ({commit}, index) {
+      commit('editRegister', index)
+      router.push('/signup')
+    },
+    getRegisters ({commit}, payload) {
+      console.log(payload)
+      Axios.get(`http://localhost:5000/api/v1/signups?page=${payload.page}&search=${payload.search}`)
+        .then( res => {
+          console.log(res);
+          commit('setRegisters', res.data);
+        })
+        .catch( err => {
+          console.log(err);
+        })
+    }
   },
   getters: {
-    showSearchValue: (state) => {
-      return state.search
-    },
     showStudents: (state) => {
-      return state.students
+      return state.students.items
     },
     payload: (state) => {
       return state.formData

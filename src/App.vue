@@ -24,6 +24,7 @@
 <script>
 import navLink from '@/components/nav.vue'
 import navMobile from '@/components/nav-mobile.vue'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -40,6 +41,12 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    ...mapActions(['getRegisters']),
+  },
+  beforeMount() {
+    this.getRegisters({page: 0, search: ''});
   },
 }
 </script>

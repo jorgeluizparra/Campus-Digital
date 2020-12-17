@@ -31,24 +31,18 @@
                     <td>{{ student.cpf }}</td>
                     <td>
                         <v-btn
-                          class="ma-2 edit"
-                          depressed
-                          fab
-                          text
-                          small>
+                            @click="editRegister(key)"
+                            class="ma-2 edit"
+                            depressed
+                            fab
+                            text
+                            small
+                        >
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
                     </td>
                     <td>
-                        <v-btn
-                          class="ma-2 delete"
-                          depressed
-                          fab
-                          text
-                          small
-                          color="red darken-4">
-                            <v-icon>mdi-delete</v-icon>
-                        </v-btn>
+                        <delete-dialog :id="key" />
                     </td>
                 </tr>
             </tbody>
@@ -58,14 +52,20 @@
 </template>
 
 <script>
+import dialog from '@/components/dialog.vue';
+import { mapActions } from 'vuex';
+
 export default {
     props: {
         students: Array
     },
-    data () {
-      return {
-        
-      }
+    components: {
+        'delete-dialog' : dialog
+    },
+    methods: {
+        ...mapActions([
+            'editRegister'
+        ])
     },
 }
 </script>
