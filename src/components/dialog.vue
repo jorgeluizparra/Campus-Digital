@@ -32,7 +32,7 @@
                 <v-btn
                     color="black"
                     dark
-                    @click="confirm()"
+                    @click="confirmDelete()"
                 >
                     Confirmar
                 </v-btn>
@@ -60,14 +60,18 @@ export default {
         }
     },
     props: {
-        id: Number
+        id: Number,
+        index: Number
     },
     methods: {
         ...mapActions([
             'deleteRegister',
         ]),
-        confirm () {
-            this.deleteRegister(this.id)
+        confirmDelete () {
+            this.deleteRegister({
+                id: this.id,
+                index: this.index    
+            })
             this.dialog = false
         }
     },

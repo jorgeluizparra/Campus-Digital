@@ -42,7 +42,10 @@
                         </v-btn>
                     </td>
                     <td>
-                        <delete-dialog :id="key" />
+                        <delete-dialog 
+                            :id="student.id" 
+                            :index="key"
+                        />
                     </td>
                 </tr>
             </tbody>

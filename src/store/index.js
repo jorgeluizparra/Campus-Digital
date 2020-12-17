@@ -43,7 +43,7 @@ export default new Vuex.Store({
       state.formData.cpf = ''
     },
     deleteRegister (state, index) {
-      Vue.delete(state.students, index)
+      state.students.items.splice(index, 1)
     },
     editRegister (state, index) {
       state.formData = state.students[index]
@@ -65,8 +65,16 @@ export default new Vuex.Store({
     clearFormData ({commit}) {
       commit('clearFormData')
     },
-    deleteRegister ({commit}, index) {
-      commit('deleteRegister', index)
+    deleteRegister ({commit}, payload) {
+      // console.log(payload)
+      Axios.delete('http://localhost:5000/api/v1/signups/' + payload.id)
+        .then( res => {
+          console.log(res);
+          commit('deleteRegister', payload.index);
+        })
+        .catch( err => {
+          console.log(err);
+        })
     },
     editRegister ({commit}, index) {
       commit('editRegister', index)
