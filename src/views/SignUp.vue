@@ -97,16 +97,16 @@ export default {
     ...mapGetters(['payload'])
   },
   methods: {
-    ...mapActions(['submit', 'clearFormData']),
+    ...mapActions(['createRegister', 'clearFormData']),
     validade () {
       if (this.$refs.form.validate()) {
-        this.submit ()
-        .then ( () => {
-          this.message = {
-            type: 'success',
-            message: 'Cadastro realizado com sucesso!'
-          }
-        })
+        this.createRegister (this.payload)
+          .then ( () => {
+            this.message = {
+              type: 'success',
+              message: 'Cadastro realizado com sucesso!'
+            }
+          })
       }
       else {
         this.message = {

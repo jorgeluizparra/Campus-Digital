@@ -33,8 +33,8 @@ export default new Vuex.Store({
     setRegisters (state, array) {
       state.students = array
     },
-    addRegistration (state) {
-      Vue.set(state.students, state.students.length, state.formData)
+    addRegistration (state, payload) {
+      state.students.items.push(payload)
     },
     clearFormData (state) {
       state.formData.name = ''
@@ -50,9 +50,17 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    submit ({commit}) {
-      commit('addRegistration')
-      commit('clearFormData')
+    createRegister ({commit}, payload) {
+      console.log(payload)
+      Axios.post('http://localhost:5000/api/v1/signups', payload)
+        .then( res => {
+          console.log(res);
+          commit('addRegistration', res.data)
+          commit('clearFormData')
+        })
+        .catch( err => {
+          console.log(err);
+        })
     },
     clearFormData ({commit}) {
       commit('clearFormData')
