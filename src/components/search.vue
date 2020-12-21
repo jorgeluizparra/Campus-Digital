@@ -17,7 +17,7 @@
                         Pesquisar
                     </v-btn>
                     <v-btn
-                        to="/signup"
+                        @click="setSignupData"
                         class="button-search"
                         depressed
                         dark
@@ -39,10 +39,9 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getRegisters']),
+        ...mapActions(['getRegisters', 'setSignupData']),
         submit() {
             this.getRegisters({page: 0, search: this.search});
-            this.search = '';
         }
     },
 }

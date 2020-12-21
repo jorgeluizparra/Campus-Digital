@@ -2,7 +2,7 @@
   <div class="students">
     <search-field></search-field>
     <list-students v-if="students.items && students.items.length > 0" class="lista" :students="showStudents"></list-students>
-    <message-banner class="mt-4" v-else :message="noRegistersMessage" />
+    <h4 class="mt-4" v-else>Nenhum cadastro foi encontrado.</h4>
     <div class="mobile-signup-button-area">
       <v-btn
         to="/signup"
@@ -21,14 +21,12 @@
 <script>
 import listStudents from '@/components/list.vue';
 import search from '@/components/search.vue';
-import messageBanner from '@/components/message.vue';
 import { mapGetters, mapState } from 'vuex';
 
 export default {
   components: {
     'list-students': listStudents,
-    'search-field': search,
-    'message-banner': messageBanner
+    'search-field': search
   },
   name: 'StudentsPage',
   data() {

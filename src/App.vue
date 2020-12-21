@@ -14,6 +14,8 @@
       <!-- Here goes the content -->
       <router-view class="page"/>
 
+      <message-snackbar/>
+
       <footer>
         <nav-mobile :pages="pages"></nav-mobile>
       </footer>
@@ -25,11 +27,13 @@
 import navLink from '@/components/nav.vue'
 import navMobile from '@/components/nav-mobile.vue'
 import { mapActions } from 'vuex'
+import message from '@/components/message.vue';
 
 export default {
   components: {
     'nav-link': navLink,
-    'nav-mobile': navMobile
+    'nav-mobile': navMobile,
+    'message-snackbar': message
   },
   data() {
     return {
