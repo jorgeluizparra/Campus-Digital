@@ -5,36 +5,36 @@
       @submit.prevent="validade()"
     >
       <v-text-field
-        v-model="payload.name"
+        v-model="getFormData.data.name"
         :rules="rules.nameRules"
         color="red darken-4"
         label="Nome"
         required />
 
       <v-text-field
-        v-model="payload.email"
+        v-model="getFormData.data.email"
         :rules="rules.emailRules"
         color="red darken-4"
         label="Email"
         required />
 
       <v-text-field
-        v-model="payload.studentNumber"
+        v-model="getFormData.data.studentNumber"
         :rules="rules.studentNumberRules"
         color="red darken-4"
         label="Registro Acadêmico"
-        required />
+        required 
+        :disabled="getFormData.data.id ? true : false"
+        />
       
       <v-text-field
-        v-model="payload.cpf"
+        v-model="getFormData.data.cpf"
         :rules="rules.cpfRules"
         color="red darken-4"
         label="CPF (Somente numeros)"
-        required />
-
-      <br>
-
-      <message-card :message="message" />
+        required 
+        :disabled="getFormData.data.id ? true : false"
+        />
 
       <br>
 
@@ -62,18 +62,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import Message from '../components/message.vue'
 
 export default {
-  components: {
-    'message-card' : Message
-  },
   data() {
     return { 
-      message: {
-        type:  '',
-        message: ''
-      },
+      message: {},
       rules: {
         nameRules: [
           v => !!v || 'Nome é obrigatório.'
@@ -94,24 +87,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['payload'])
+    ...mapGetters(['getFormData'])
   },
   methods: {
-    ...mapActions(['submit', 'clearFormData']),
+    ...mapActions(['createRegister', 'updateRegister', 'clearFormData']),
     validade () {
       if (this.$refs.form.validate()) {
-        this.submit ()
-        .then ( () => {
-          this.message = {
-            type: 'success',
-            message: 'Cadastro realizado com sucesso!'
-          }
-        })
-      }
-      else {
-        this.message = {
-          type: 'error',
-          message: 'Erro ao submeter os dados.'
+        if (this.getFormData.data.id) {
+          this.updateRegister (this.getFormData)
+        } else {
+          this.createRegister (this.getFormData.data)
         }
       }
     },

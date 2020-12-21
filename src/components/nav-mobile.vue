@@ -4,7 +4,6 @@
             absolute
             hide-on-scroll
             horizontal
-            scroll-target="#hide-on-scroll-example"
         >
             <v-btn
             v-for="(page, key) in pages"
