@@ -23,12 +23,12 @@
             </thead>
             <tbody>
                 <tr
-                v-for="(student, key) in students"
+                v-for="(signup, key) in signups"
                 :key="key"
                 >
-                    <td>{{ student.studentNumber }}</td>
-                    <td>{{ student.name }}</td>
-                    <td>{{ student.cpf }}</td>
+                    <td>{{ signup.studentNumber }}</td>
+                    <td>{{ signup.name }}</td>
+                    <td>{{ signup.cpf }}</td>
                     <td>
                         <v-btn
                             @click="setEditData(key)"
@@ -43,7 +43,7 @@
                     </td>
                     <td>
                         <delete-dialog 
-                            :id="student.id" 
+                            :id="signup.id" 
                             :index="key"
                         />
                     </td>
@@ -83,7 +83,7 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
     props: {
-        students: Array
+        signups: Array
     },
     components: {
         'delete-dialog' : dialog

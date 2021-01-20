@@ -1,7 +1,7 @@
-# Grupo A - Frontend application
+# Signup class - Frontend application
 
 ## Description
-This is the frontend application project of the Grupo A signup system. This project uses Vue, Vuetify, Vuex, Vue Router and Axios.
+This is the frontend application build in Vue.js. This project uses Vue, Vuetify, Vuex, Vue Router and Axios.
 
 ## Backend services repository
 https://github.com/jorgeluizparra/Grupo_A_Service

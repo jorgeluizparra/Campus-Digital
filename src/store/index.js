@@ -7,6 +7,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    apis: {
+      searchForSignups: 'http://localhost:5000/api/v1/signups/',
+      registerSignup: 'http://localhost:5000/api/v1/signups/',
+      updateSignup: 'http://localhost:5000/api/v1/signups/',
+      deleteSignup: 'http://localhost:5000/api/v1/signups/'
+    },
     message: {
       status: false,
       type: 'success',
@@ -21,7 +27,7 @@ export default new Vuex.Store({
         studentNumber: ''
       }
     },
-    students: {
+    signups: {
       // items: [
       //   {
       //     name: '',
@@ -39,10 +45,10 @@ export default new Vuex.Store({
   },
   mutations: {
     setRegisters (state, array) {
-      state.students = array
+      state.signups = array
     },
     addRegistration (state, payload) {
-      state.students.items.push(payload)
+      state.signups.items.push(payload)
     },
     clearFormData (state) {
       state.formData.data = {
@@ -53,14 +59,14 @@ export default new Vuex.Store({
       }
     },
     deleteRegister (state, index) {
-      state.students.items.splice(index, 1)
+      state.signups.items.splice(index, 1)
     },
     setEditData (state, index) {
-      state.formData = {index: index, data: state.students.items[index]}
+      state.formData = {index: index, data: state.signups.items[index]}
     },
     updateRegister (state, payload) {
-      state.students.items[payload.index] = payload.data;
-      // console.log(state.students.items)
+      state.signups.items[payload.index] = payload.data;
+      // console.log(state.signups.items)
       // console.log(payload)
     },
     setMessage (state, paylaod) {
@@ -74,9 +80,9 @@ export default new Vuex.Store({
     closeMessage ({commit}) {
       commit('closeMessage');
     },
-    createRegister ({commit}, payload) {
+    createRegister ({commit, state}, payload) {
       // console.log(payload)
-      Axios.post('http://localhost:5000/api/v1/signups', payload)
+      Axios.post(state.apis.registerSignup, payload)
         .then( res => {
           // console.log(res);
           if (res.status == 200) {
@@ -106,9 +112,9 @@ export default new Vuex.Store({
     clearFormData ({commit}) {
       commit('clearFormData');
     },
-    deleteRegister ({commit}, payload) {
+    deleteRegister ({commit, state}, payload) {
       // console.log(payload)
-      Axios.delete('http://localhost:5000/api/v1/signups/' + payload.id)
+      Axios.delete(state.apis.deleteSignup + payload.id)
         .then( res => {
           commit('deleteRegister', payload.index);
           commit('setMessage', {
@@ -134,9 +140,9 @@ export default new Vuex.Store({
       commit('clearFormData');
       router.push('/signup')
     },
-    getRegisters ({commit}, payload) {
+    getRegisters ({commit, state}, payload) {
       // console.log(payload)
-      Axios.get(`http://localhost:5000/api/v1/signups?page=${payload.page}&search=${payload.search}`)
+      Axios.get(state.apis.searchForSignups + `?page=${payload.page}&search=${payload.search}`)
         .then( res => {
           // console.log(res);
           commit('setRegisters', res.data);
@@ -145,9 +151,9 @@ export default new Vuex.Store({
           console.log(err);
         })
     },
-    updateRegister ({commit}, payload) {
+    updateRegister ({commit, state}, payload) {
       // console.log(payload)
-      Axios.put('http://localhost:5000/api/v1/signups/' + payload.data.id, {name: payload.data.name, email: payload.data.email})
+      Axios.put(state.apis.updateSignup + payload.data.id, {name: payload.data.name, email: payload.data.email})
         .then( res => {
           // console.log(res);
           if (res.status == 200) {
@@ -177,17 +183,17 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    showStudents: (state) => {
-      return state.students.items
+    showsignups: (state) => {
+      return state.signups.items
     },
     getPagination: (state) => {
       return {
-        nextPage: state.students.nextPage,
-        page: state.students.page,
-        previousPage: state.students.previousPage,
-        totalItems: state.students.totalItems,
-        totalPages: state.students.totalPages,
-        search: state.students.search
+        nextPage: state.signups.nextPage,
+        page: state.signups.page,
+        previousPage: state.signups.previousPage,
+        totalItems: state.signups.totalItems,
+        totalPages: state.signups.totalPages,
+        search: state.signups.search
       }
     },
     getFormData: (state) => {

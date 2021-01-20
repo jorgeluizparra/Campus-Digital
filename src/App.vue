@@ -3,8 +3,7 @@
     <v-app>
       <div>
         <v-toolbar class="toolbar">
-          <img src="./assets/icon.webp" >
-          <v-toolbar-title><strong>EdTech</strong> - Sistema de cadastro</v-toolbar-title>
+          <v-toolbar-title><strong>Campus Oline</strong> - Sistema de cadastro</v-toolbar-title>
           <template class="nav-link" v-slot:extension>
             <nav-link :pages="pages" />
           </template>
@@ -62,9 +61,8 @@ export default {
   }
 
   .toolbar {
-    
-    img {
-      width: 90px;
+    .v-toolbar__title {
+      font-size: 2.25rem;
     }
   }
 
@@ -80,11 +78,12 @@ export default {
     header {
       height: fit-content !important;
     }
-
+    .v-toolbar__title {
+      font-size: 1.25rem !important;
+    }
     .v-toolbar__extension {
       display: none !important;
     }
-
     footer {
       display: block;
     }

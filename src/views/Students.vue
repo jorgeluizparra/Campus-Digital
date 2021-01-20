@@ -1,7 +1,7 @@
 <template>
-  <div class="students">
+  <div class="signups">
     <search-field></search-field>
-    <list-students v-if="students.items && students.items.length > 0" class="lista" :students="showStudents"></list-students>
+    <list-signups v-if="signups.items && signups.items.length > 0" class="lista" :signups="showsignups"></list-signups>
     <h4 class="mt-4" v-else>Nenhum cadastro foi encontrado.</h4>
     <div class="mobile-signup-button-area">
       <v-btn
@@ -19,16 +19,16 @@
 </template>
 
 <script>
-import listStudents from '@/components/list.vue';
+import listsignups from '@/components/list.vue';
 import search from '@/components/search.vue';
 import { mapGetters, mapState } from 'vuex';
 
 export default {
   components: {
-    'list-students': listStudents,
+    'list-signups': listsignups,
     'search-field': search
   },
-  name: 'StudentsPage',
+  name: 'signupsPage',
   data() {
     return {
       noRegistersMessage: {
@@ -39,9 +39,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'showStudents'
+      'showsignups'
     ]),
-    ...mapState(['students'])
+    ...mapState(['signups'])
   },
 }
 </script>
