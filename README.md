@@ -4,7 +4,7 @@
 This is the frontend application build in Vue.js. This project uses Vue, Vuetify, Vuex, Vue Router and Axios.
 
 ## Backend services repository
-https://github.com/jorgeluizparra/Grupo_A_Service
+https://github.com/jorgeluizparra/Campus-Digital-SignupClass-Service
 
 ## Project setup
 ```
